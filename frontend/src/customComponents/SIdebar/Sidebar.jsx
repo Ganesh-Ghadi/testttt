@@ -95,23 +95,33 @@ const Sidebar = () => {
               {/* Parent item */}
               <NavLink
                 className={({ isActive }) =>
-                  `flex mb-4 p-2 rounded-md hover:bg-light-white items-center gap-4 ${
+                  `flex mb-2 p-2 rounded-md hover:bg-light-white items-center gap-4 ${
                     isActive ? 'bg-gray-300' : ''
                   }`
                 }
                 to={item.path || '#'}
                 onClick={() => item.children && toggleChildren(item.name)} // Toggle children visibility on click
               >
-                <p className="text-2xl">{item.logo}</p>
-                <p
-                  className={`${
-                    !isSidebarOpen && 'scale-0'
-                  } origin-left duration-300 text-sm`}
-                >
-                  {item.name}
-                </p>
-                <p className="flex justify-end">
-                  <IoIosArrowDown />
+                <p className="w-full flex justify-between items-center">
+                  <p className="flex gap-2">
+                    <p className="text-xl">{item.logo}</p>
+                    <p
+                      className={`${
+                        !isSidebarOpen && 'scale-0'
+                      } origin-left duration-300 text-sm`}
+                    >
+                      {item.name}
+                    </p>
+                  </p>
+                  <p className="flex justify-end">
+                    <IoIosArrowDown
+                      className={`${
+                        item.children &&
+                        activeParent === item.name &&
+                        'rotate-180'
+                      } ${!isSidebarOpen && 'scale-0'}`}
+                    />
+                  </p>
                 </p>
               </NavLink>
 
