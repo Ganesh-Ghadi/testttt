@@ -1,30 +1,62 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import background from "../../images/doitBackground.avif";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { z } from "zod";
+import { toast } from "sonner";
+import axios from "axios";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Controller } from "react-hook-form";
 const Login = () => {
+  const navigate = useNavigate();
+
+  const defaultValues = {
+    email: "",
+    password: "",
+  };
+
   const formSchema = z.object({
-    title: z.string().nonempty("title field is required"),
-    description: z.string().nullable().optional(),
-    priority: z.string().nullable().optional(),
-    weight: z.string().nullable().optional(),
-    status: z.string().nullable().optional(),
-    start_date: z.string().nonempty("Start date is required"),
-    end_date: z.string().nonempty("End date is required"),
-    project_id: z.union([z.string(), z.number()]).nullable().optional(), // Allow both string or number
+    email: z
+      .string()
+      .email("Invalid email address")
+      .nonempty("Email is required"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
   });
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-    setValue,
-  } = useForm({
-    resolver: zodResolver(formSchema),
-  });
+  } = useForm({ resolver: zodResolver(formSchema), defaultValues });
 
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/login",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Login successful:", response.data);
+      localStorage.setItem("user", JSON.stringify(response.data.data));
+      toast.success("Login successful! Welcome back.");
+      navigate("/");
+    } catch (error) {
+      if (error.response) {
+        toast.error("Login failed: " + error.response.data.message); // Customize error message
+      } else if (error.request) {
+        toast.error("No response from server. Please try again later.");
+      } else {
+        toast.error("An error occurred while making the request.");
+      }
+    }
+  };
 
   return (
     <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
@@ -65,71 +97,87 @@ const Login = () => {
           </blockquote>
         </div>
       </div>
-      <div className="flex h-full items-center p-4 lg:p-8 drop-shadow-md">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-          <div className="flex flex-col space-y-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight">
-              Login to your account
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Enter your email below to login to your account
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex h-full items-center p-4 lg:p-8 drop-shadow-md">
+          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+            <div className="flex flex-col space-y-2 text-center">
+              <h1 className="text-2xl font-semibold tracking-tight">
+                Login to your account
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                Enter your email below to login to your account
+              </p>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                  />
+                )}
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              )}
+            </div>
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="password">Password</Label>
+                <a
+                  href="#"
+                  className="ml-auto text-sm underline-offset-2 hover:underline"
+                >
+                  Forgot your password?
+                </a>
+              </div>
+              <Controller
+                name="password"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    id="password"
+                    type="password"
+                    placeholder="Enter password"
+                  />
+                )}
+              />
+              {errors.password && (
+                <p className="text-red-500 text-sm ">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+            {/* end */}
+            <p className="px-8 text-center text-sm text-muted-foreground">
+              By clicking continue, you agree to our{" "}
+              <Link
+                to="#"
+                className="underline underline-offset-4 hover:text-primary"
+              >
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link
+                to="#"
+                className="underline underline-offset-4 hover:text-primary"
+              >
+                Privacy Policy
+              </Link>
+              .
             </p>
           </div>
-          {/* <UseFormHook
-            schema={typeofschema}
-            defaultValues={defaultValues}
-            onSubmit={onSubmit}
-          /> */}
-          {/* start */}
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-            />
-          </div>
-          <div className="grid gap-2">
-            <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
-              <a
-                href="#"
-                className="ml-auto text-sm underline-offset-2 hover:underline"
-              >
-                Forgot your password?
-              </a>
-            </div>
-            <Input
-              id="password"
-              type="password"
-              placeholder="Enter password"
-              required
-            />
-          </div>
-          <Button type="submit" className="w-full">
-            Login
-          </Button>
-          {/* end */}
-          <p className="px-8 text-center text-sm text-muted-foreground">
-            By clicking continue, you agree to our{" "}
-            <Link
-              to="#"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link
-              to="#"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-              Privacy Policy
-            </Link>
-            .
-          </p>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

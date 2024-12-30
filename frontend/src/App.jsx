@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "react-toastify/dist/ReactToastify.css";
-// import { ToastContainer } from "react-toastify";
+import { Toaster, toast } from "sonner";
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -20,7 +20,6 @@ import EditProject from "./pages/Projects/EditProject";
 import Tasks from "./pages/Tasks/Tasks";
 import CreateTask from "./pages/Tasks/CreateTask";
 import EditTask from "./pages/Tasks/EditTask";
-import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -63,7 +62,7 @@ const App = () => {
 
   return (
     <>
-      <ToastContainer position="top-center" autoClose={5000} />
+      <Toaster position="top-right" />
       <RouterProvider router={router} />
     </>
   );
