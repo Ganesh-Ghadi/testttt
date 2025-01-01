@@ -15,41 +15,29 @@ const Sidebar = () => {
   const items = [
     {
       name: 'Home',
-      path: '#',
+      path: '/',
       logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
     },
     {
-      name: 'Projects',
+      name: 'User Management',
       path: '#',
       logo: <IoLogoSlack />,
       children: [
         {
-          name: 'Registration',
-          path: '/projects',
+          name: 'Roles',
+          path: '/roles',
           logo: <IoLogoSlack />,
         },
         {
-          name: 'All Registration',
-          path: '/registrationlist',
+          name: 'Users',
+          path: '/users',
           logo: <IoLogoSlack />,
         },
       ],
     },
     {
       name: 'Dashboard',
-      path: '/',
+      path: '/gr',
       logo: <IoLogoSlack />,
     },
     {

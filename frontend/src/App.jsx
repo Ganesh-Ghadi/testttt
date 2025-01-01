@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Toaster, toast } from "sonner";
+import React, { useEffect, useState } from 'react';
+import { Toaster, toast } from 'sonner';
 
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
-} from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
-import Homepage from "./pages/HomePage/Homepage";
-import Projects from "./pages/Projects/Projects";
-import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
-import Error from "./customComponents/Error/Error";
-import CreateProject from "./pages/Projects/CreateProject";
-import ProtectedRoute from "./customComponents/ProtectedRoute/ProtectedRoute";
-import GuestRoute from "./customComponents/GuestRoute/GuestRoute";
-import EditProject from "./pages/Projects/EditProject";
-import Tasks from "./pages/Tasks/Tasks";
-import CreateTask from "./pages/Tasks/CreateTask";
-import EditTask from "./pages/Tasks/EditTask";
+} from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import Homepage from './pages/HomePage/Homepage';
+import Projects from './pages/Projects/Projects';
+import Roles from './pages/Roles/index';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import Error from './customComponents/Error/Error';
+import CreateProject from './pages/Projects/CreateProject';
+import ProtectedRoute from './customComponents/ProtectedRoute/ProtectedRoute';
+import GuestRoute from './customComponents/GuestRoute/GuestRoute';
+import EditProject from './pages/Projects/EditProject';
+import Tasks from './pages/Tasks/Tasks';
+import CreateTask from './pages/Tasks/CreateTask';
+import EditTask from './pages/Tasks/EditTask';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -36,13 +37,14 @@ const App = () => {
         >
           <Route index element={<Homepage />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/roles" element={<Roles />} />
         </Route>
         <Route
           errorElement={<Error />}
           path="/login"
           element={
             <GuestRoute>
-              {" "}
+              {' '}
               <Login />
             </GuestRoute>
           }
