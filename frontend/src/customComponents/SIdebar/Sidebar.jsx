@@ -15,7 +15,7 @@ const Sidebar = () => {
   const items = [
     {
       name: 'Home',
-      path: '/',
+      path: '#',
       logo: <IoLogoSlack />,
       children: [
         {
@@ -32,12 +32,12 @@ const Sidebar = () => {
     },
     {
       name: 'Projects',
-      path: '/projects',
+      path: '#',
       logo: <IoLogoSlack />,
       children: [
         {
           name: 'Registration',
-          path: '/registration',
+          path: '/projects',
           logo: <IoLogoSlack />,
         },
         {
@@ -48,8 +48,8 @@ const Sidebar = () => {
       ],
     },
     {
-      name: 'Tasks',
-      path: '/tasks',
+      name: 'Dashboard',
+      path: '/',
       logo: <IoLogoSlack />,
     },
     {
@@ -61,312 +61,6 @@ const Sidebar = () => {
       name: 'Contact',
       path: '/contact',
       logo: <IoLogoSlack />,
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-      logo: <IoLogoSlack />,
-      children: [
-        {
-          name: 'Registration',
-          path: '/registration',
-          logo: <IoLogoSlack />,
-        },
-        {
-          name: 'All Registration',
-          path: '/registrationlist',
-          logo: <IoLogoSlack />,
-        },
-      ],
     },
   ];
 
@@ -412,44 +106,76 @@ const Sidebar = () => {
               return (
                 <div key={index}>
                   {/* Parent item */}
-                  <NavLink
-                    className={({ isActive }) =>
-                      `flex text-sm my-2 p-1 rounded hover:bg-light-white items-center ${
-                        isActive
-                          ? 'bg-gray-300 dark:bg-gray-600'
-                          : 'border-b-2 border-gray-200 dark:border-gray-600'
-                      } `
-                    }
-                    to={item.path || '#'}
-                    onClick={() => item.children && toggleChildren(item.name)} // Toggle children visibility on click
-                  >
-                    <p className="text-xl">{item.logo}</p>
-                    <div
-                      className={`w-full px-2 flex justify-between items-center ${
-                        !isSidebarOpen && 'opacity-0 invisible'
-                      }`}
+                  {item.children ? (
+                    <NavLink
+                      className="border-b-2 border-gray-200 dark:border-gray-600 flex text-sm my-2 p-1 rounded hover:bg-light-white items-center"
+                      to={item.path || '#'}
+                      onClick={() => item.children && toggleChildren(item.name)} // Toggle children visibility on click
                     >
-                      <p className="">{item.name}</p>
-                      <p className="">
-                        <IoIosArrowDown
-                          className={`${
-                            item.children &&
-                            activeParent === item.name &&
-                            'rotate-180'
-                          }`}
-                        />
-                      </p>
-                    </div>
-                  </NavLink>
+                      <p className="text-xl">{item.logo}</p>
+                      <div
+                        className={`w-full px-2 flex justify-between items-center ${
+                          !isSidebarOpen && 'opacity-0 invisible'
+                        }`}
+                      >
+                        <p className="">{item.name}</p>
+                        {item.children && (
+                          <p>
+                            <IoIosArrowDown
+                              className={`${
+                                item.children &&
+                                activeParent === item.name &&
+                                'rotate-180'
+                              }`}
+                            />
+                          </p>
+                        )}
+                      </div>
+                    </NavLink>
+                  ) : (
+                    <NavLink
+                      className={({ isActive }) =>
+                        `border-b-2 border-gray-200 dark:border-gray-600 flex text-sm my-2 p-1 rounded hover:bg-light-white items-center ${
+                          isActive && 'bg-gray-300 dark:bg-gray-600'
+                        }`
+                      }
+                      to={item.path || '#'}
+                      onClick={() => item.children && toggleChildren(item.name)} // Toggle children visibility on click
+                    >
+                      <p className="text-xl">{item.logo}</p>
+                      <div
+                        className={`w-full px-2 flex justify-between items-center ${
+                          !isSidebarOpen && 'opacity-0 invisible'
+                        }`}
+                      >
+                        <p>{item.name}</p>
+                        {item.children && (
+                          <p>
+                            <IoIosArrowDown
+                              className={`${
+                                item.children &&
+                                activeParent === item.name &&
+                                'rotate-180'
+                              }`}
+                            />
+                          </p>
+                        )}
+                      </div>
+                    </NavLink>
+                  )}
                   {/* Render children if the parent item has children and it's the active one */}
                   {item.children && activeParent === item.name && (
                     <div>
                       {item.children.map((child, idx) => (
                         <NavLink
                           key={idx}
-                          className={`pl-1 w-full py-1 my-2 gap-2 flex items-center text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-600 ${
-                            isSidebarOpen && 'pl-8'
-                          } `}
+                          className={({ isActive }) =>
+                            `  ${
+                              isActive && 'bg-gray-300 dark:bg-gray-600'
+                            } pl-1 w-full py-1 my-2 gap-2 flex items-center text-sm text-gray-600 dark:text-gray-300  ${
+                              isSidebarOpen && 'pl-8'
+                            } `
+                          }
                           to={child.path}
                         >
                           <p className="text-xl">{child.logo}</p>
