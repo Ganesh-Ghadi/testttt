@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\LeadsController;
+use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\ClientsController;
 use App\Http\Controllers\Api\ContactsController;
 use App\Http\Controllers\Api\ProductsController;
@@ -36,5 +37,6 @@ Route::group(['middleware'=>['auth:sanctum', 'permission']], function(){
    Route::get('/purchase', [PurchasesController::class, 'index'])->name("purchase.index");
    Route::get('/all_product_categories', [ProductCategoriesController::class, 'allProductCategories'])->name("product_categories.all");
    Route::get('/all_suppliers', [SuppliersController::class, 'allSuppliers'])->name("suppliers.all");
+   Route::get('/roles', [RolesController::class, 'index'])->name("roles.index");
 
 });
