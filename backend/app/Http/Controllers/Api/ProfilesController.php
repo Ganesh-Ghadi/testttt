@@ -1,0 +1,160 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Models\Profile;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ProfileResource;
+use App\Http\Controllers\Api\BaseController;
+
+class ProfilesController extends BaseController
+{
+    /**
+     * Display All Profiles.
+     */
+    public function index(Request $request): JsonResponse
+    {
+        $query = Profile::query();
+
+        if ($request->query('search')) {
+            $searchTerm = $request->query('search');
+    
+            $query->where(function ($query) use ($searchTerm) {
+                $query->where('profile_name', 'like', '%' . $searchTerm . '%');
+            });
+        }
+        $profiles = $query->paginate(15);
+
+        return $this->sendResponse(["Profiles"=>ProfileResource::collection($profiles),
+        'pagination' => [
+            'current_page' => $profiles->currentPage(),
+            'last_page' => $profiles->lastPage(),
+            'per_page' => $profiles->perPage(),
+            'total' => $profiles->total(),
+        ]], "Profiles retrieved successfully");
+    }
+
+    /**
+     * Store Profile.
+     * @bodyParam profile_name string The name of the Employee.
+     * @bodyParam email string The name of the Employee.
+     * @bodyParam active string The name of the Employee.
+     * @bodyParam password string The name of the Employee.
+     * @bodyParam role string The name of the Employee.
+     * @bodyParam mobile string The name of the Employee.
+     */
+    public function store(StoreEmployeeRequest $request): JsonResponse
+    {
+        $user = new User();
+        $user->name = $request->input('profile_name');
+        $user->email = $request->input('email');
+        $user->active = $request->input('active');
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
+        
+        // $memberRole = $request->input("role");
+        $memberRole = $request->input("member");
+        $memberRole = Role::where("name",$memberRole)->first();
+       
+        $user->assignRole($memberRole);
+        
+        $profile = new Profile();
+        $profile->user_id = $user->id;
+        $profile->profile_name = $request->input('profile_name');
+        $profile->email = $request->input('email');
+        $profile->mobile = $request->input('mobile');
+        $profile->save();
+       
+        return $this->sendResponse(['User'=> new UserResource($user), 'Profile'=>new ProfileResource($profile)], "Profile stored successfully");
+    }
+
+    /**
+     * Show Profile.
+     */
+    public function show(string $id): JsonResponse
+    {
+        $profile = Profile::find($id);
+
+        if(!$profile){
+            return $this->sendError("Profile not found", ['error'=>'Profile not found']);
+        }
+        $user = User::find($profile->user_id);
+        return $this->sendResponse(['User'=> new UserResource($user), 'Profile'=>new ProfileResource($profile)], "Profile retrived successfully");
+    }
+
+    /**
+     * Update Employee.
+     * @bodyParam employee_name string The name of the Employee.
+     * @bodyParam email string The name of the Employee.
+     * @bodyParam active string The name of the Employee.
+     * @bodyParam password string The name of the Employee.
+     * @bodyParam role string The name of the Employee.
+     * @bodyParam department_id string The name of the Employee.
+     * @bodyParam mobile string The name of the Employee.
+     * @bodyParam joining_date string The name of the Employee.
+     */
+    public function update(UpdateEmployeeRequest $request, string $id): JsonResponse
+    {
+        $employee = Employee::find($id);
+
+        if(!$employee){
+            return $this->sendError("Employee not found", ['error'=>'Employee not found']);
+        }
+        $user = User::find($employee->user_id);
+        $user->name = $request->input('employee_name');
+        $user->email = $request->input('email');
+        $user->active = $request->input('active');
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
+
+        $memberRole = $request->input("role");
+        $memberRole = Role::where("name",$memberRole)->first();
+        $user->assignRole($memberRole);
+                       
+        $employee->employee_name = $request->input('employee_name');
+        $employee->department_id = $request->input('department_id');
+        $employee->email = $request->input('email');
+        $employee->mobile = $request->input('mobile');
+        $employee->joining_date = $request->input('joining_date');
+        // $employee->resignation_date = $request->input('resignation_date');
+        $employee->save();
+       
+        return $this->sendResponse(['User'=> new UserResource($user), 'employee'=>new EmployeeResource($employee)], "Employees updated successfully");
+
+    }
+
+    /**
+     * Remove Employee.
+     */
+    public function destroy(string $id): JsonResponse
+    {
+        $employee = Employee::find($id);
+        if(!$employee){
+            return $this->sendError("employee not found", ['error'=> 'employee not found']);
+        }
+        $user = User::find($employee->user_id);
+        $employee->delete();
+        $user->delete();
+        return $this->sendResponse([], "employee deleted successfully");
+    }
+
+    /**
+     * resignation.
+     */
+    public function resignation(Request $request, string $id): JsonResponse
+    {
+        $employee = Employee::find($id);
+        if(!$employee){
+            return $this->sendError("employee not found", ['error'=>'employee not found']);
+        }
+        $val = 0;
+        $user = User::find($employee->user_id);
+        $employee->resignation_date = $request->input('resignation_date');
+        $employee->save();
+        $user->active = $val;
+        $user->save();
+        return $this->sendResponse(['User'=> new UserResource($user), 'employee'=>new EmployeeResource($employee)], "employee data updated successfully");
+    }
+}

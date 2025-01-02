@@ -11,6 +11,7 @@ import MainLayout from './layouts/MainLayout';
 import Homepage from './pages/HomePage/Homepage';
 import Projects from './pages/Projects/Projects';
 import Roles from './pages/Roles/index';
+import Users from './pages/Users/index';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Error from './customComponents/Error/Error';
@@ -38,6 +39,7 @@ const App = () => {
           <Route index element={<Homepage />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/roles" element={<Roles />} />
+          <Route path="/users" element={<Users />} />
         </Route>
         <Route
           errorElement={<Error />}

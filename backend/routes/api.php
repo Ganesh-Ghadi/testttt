@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\ClientsController;
 use App\Http\Controllers\Api\ContactsController;
 use App\Http\Controllers\Api\ProductsController;
+use App\Http\Controllers\Api\ProfilesController;
 use App\Http\Controllers\Api\EmployeesController;
 use App\Http\Controllers\Api\FollowUpsController;
 use App\Http\Controllers\Api\PurchasesController;
@@ -26,6 +27,7 @@ Route::group(['middleware'=>['auth:sanctum', 'permission']], function(){
    Route::resource('suppliers', SuppliersController::class);    
    Route::resource('departments', DepartmentController::class);  
    Route::resource('employees', EmployeesController::class);  
+   Route::resource('profiles', ProfilesController::class);  
    Route::post('/follow_ups', [FollowUpsController::class, 'store'])->name("follow_ups.store");
    Route::get('/follow_ups/{id}', [FollowUpsController::class, 'show'])->name("follow_ups.show");
    Route::post('/employees/resignation/{id}', [EmployeesController::class, 'resignation'])->name("employee.resignation");
