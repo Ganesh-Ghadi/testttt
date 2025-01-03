@@ -87,7 +87,7 @@ const MainLayout = ({ toggleTheme, darkMode }) => {
           <Sidebar />
           {/* </div> */}
 
-          <div className="w-full bg-slate-50 p-7 overflow-y-auto">
+          <div className="w-full bg-slate-50 p-6 overflow-y-auto">
             <Outlet />
           </div>
         </div>

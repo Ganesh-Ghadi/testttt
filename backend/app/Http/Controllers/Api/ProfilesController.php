@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\ProfileResource;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
@@ -50,21 +54,21 @@ class ProfilesController extends BaseController
     public function store(StoreProfileRequest $request): JsonResponse
     {
         $user = new User();
-        $user->name = $request->input('profile_name');
+        $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->active = $request->input('active');
         $user->password = Hash::make($request->input('password'));
         $user->save();
         
         // $memberRole = $request->input("role");
-        $memberRole = $request->input("member");
+        $memberRole = $request->input("role");
         $memberRole = Role::where("name",$memberRole)->first();
        
         $user->assignRole($memberRole);
         
         $profile = new Profile();
         $profile->user_id = $user->id;
-        $profile->profile_name = $request->input('profile_name');
+        $profile->profile_name = $request->input('name');
         $profile->email = $request->input('email');
         $profile->mobile = $request->input('mobile');
         $profile->save();
@@ -103,7 +107,7 @@ class ProfilesController extends BaseController
             return $this->sendError("Profile not found", ['error'=>'Profile not found']);
         }
         $user = User::find($employee->user_id);
-        $user->name = $request->input('profile_name');
+        $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->active = $request->input('active');
         $user->password = Hash::make($request->input('password'));
@@ -113,7 +117,7 @@ class ProfilesController extends BaseController
         $memberRole = Role::where("name",$memberRole)->first();
         $user->assignRole($memberRole);
                        
-        $profile->profile_name = $request->input('profile_name');
+        $profile->profile_name = $request->input('name');
         $profile->email = $request->input('email');
         $profile->mobile = $request->input('mobile');
         $profile->save();
