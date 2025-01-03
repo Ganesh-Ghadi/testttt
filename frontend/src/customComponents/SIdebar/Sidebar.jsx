@@ -62,8 +62,8 @@ const Sidebar = () => {
     <>
       <ScrollArea
         className={`${
-          isSidebarOpen ? "w-80" : "hidden"
-        } duration-300 px-4 pt-3.5  min-h-screen   dark:bg-gray-800 bg-slate-50`}
+          isSidebarOpen ? "w-80 hidden md:block" : "hidden"
+        } duration-300 px-4 pt-3.5 shadow-xl  min-h-screen   dark:bg-gray-800 bg-slate-50`}
       >
         <ul className="pb-32 ">
           {/* mt-10 about */}
