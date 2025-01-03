@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Table,
   TableBody,
@@ -8,9 +8,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import axios from 'axios';
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import axios from "axios";
 import {
   File,
   PlusCircle,
@@ -19,7 +19,7 @@ import {
   Trash,
   MoreHorizontal,
   ListFilter,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,23 +27,25 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useQuery } from '@tanstack/react-query';
+} from "@/components/ui/dropdown-menu";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 const index = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
   const token = user.token;
+  const navigate = useNavigate();
   const {
     data: UsersData,
     isLoading: isUsersDataLoading,
     isError: isUsersDataError,
   } = useQuery({
-    queryKey: ['users'], // This is the query key
+    queryKey: ["users"], // This is the query key
     queryFn: async () => {
       // The query function to fetch roles data
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/profiles', {
+        const response = await axios.get("http://127.0.0.1:8000/api/profiles", {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
@@ -59,8 +61,17 @@ const index = () => {
   }
   return (
     <>
-      <div className="p-7 shadow-xl border rounded-md">
-        <h2 className="text-xl pb-3 font-semibold">Users</h2>
+      <div className="p-1 w-full bg-white shadow-xl border rounded-md">
+        <div className="w-full p-3 flex justify-between items-center">
+          <h2 className="text-xl font-semibold">Users</h2>
+          <Button
+            onClick={() => navigate("/users/create")}
+            variant=""
+            className="text-sm"
+          >
+            Add Users
+          </Button>
+        </div>
         <Table>
           <TableCaption>A list of your Users.</TableCaption>
           <TableHeader className="bg-slate-50">
@@ -73,7 +84,9 @@ const index = () => {
             {UsersData &&
               UsersData.map((user) => (
                 <TableRow key={user.id}>
-                  <TableCell className="font-medium">{user.profile_name}</TableCell>
+                  <TableCell className="font-medium">
+                    {user.profile_name}
+                  </TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
