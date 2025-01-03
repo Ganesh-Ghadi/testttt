@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
@@ -38,6 +38,7 @@ const formSchema = z.object({
   active: z.coerce.number().optional(),
 });
 const Create = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
   const token = user.token;
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const Create = () => {
     name: '',
     mobile: '',
     role: '',
-    active: "1",
+    active: '1',
   };
 
   const {
@@ -72,13 +73,17 @@ const Create = () => {
     },
     onSuccess: (data) => {
       toast.success('User Created Successfully');
+      setIsLoading(false);
       navigate('/users');
     },
     onError: (error) => {
+      setIsLoading(false);
+
       console.log('got error ', error);
     },
   });
   const onSubmit = (data) => {
+    setIsLoading(true);
     storeMutation.mutate(data);
   };
 
@@ -270,10 +275,10 @@ const Create = () => {
 
             <Button
               type="submit"
-              disabled={storeMutation.isLoading}
+              disabled={isLoading}
               className="shadow-xl bg-green-500 hover:bg-green-600"
             >
-              {storeMutation.isLoading ? 'Submitting...' : 'Submit'}
+              {isLoading ? 'Submitting...' : 'Submit'}
             </Button>
           </div>
         </form>
