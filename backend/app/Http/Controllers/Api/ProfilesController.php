@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProfileResource;
+use App\Http\Requests\StoreProfileRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Controllers\Api\BaseController;
 
 class ProfilesController extends BaseController
@@ -38,14 +40,14 @@ class ProfilesController extends BaseController
 
     /**
      * Store Profile.
-     * @bodyParam profile_name string The name of the Employee.
-     * @bodyParam email string The name of the Employee.
-     * @bodyParam active string The name of the Employee.
-     * @bodyParam password string The name of the Employee.
-     * @bodyParam role string The name of the Employee.
-     * @bodyParam mobile string The name of the Employee.
+     * @bodyParam profile_name string The name of the Profile.
+     * @bodyParam email string The name of the Profile.
+     * @bodyParam active string The name of the Profile.
+     * @bodyParam password string The name of the Profile.
+     * @bodyParam role string The name of the Profile.
+     * @bodyParam mobile string The name of the Profile.
      */
-    public function store(StoreEmployeeRequest $request): JsonResponse
+    public function store(StoreProfileRequest $request): JsonResponse
     {
         $user = new User();
         $user->name = $request->input('profile_name');
@@ -85,25 +87,23 @@ class ProfilesController extends BaseController
     }
 
     /**
-     * Update Employee.
-     * @bodyParam employee_name string The name of the Employee.
-     * @bodyParam email string The name of the Employee.
-     * @bodyParam active string The name of the Employee.
-     * @bodyParam password string The name of the Employee.
-     * @bodyParam role string The name of the Employee.
-     * @bodyParam department_id string The name of the Employee.
-     * @bodyParam mobile string The name of the Employee.
-     * @bodyParam joining_date string The name of the Employee.
+     * Update Profile.
+     * @bodyParam profile_name string The name of the Profile.
+     * @bodyParam email string The name of the Profile.
+     * @bodyParam active string The name of the Profile.
+     * @bodyParam password string The name of the Profile.
+     * @bodyParam role string The name of the Profile.
+     * @bodyParam mobile string The name of the Profile.
      */
-    public function update(UpdateEmployeeRequest $request, string $id): JsonResponse
+    public function update(UpdateProfileRequest $request, string $id): JsonResponse
     {
-        $employee = Employee::find($id);
+        $profile = Profile::find($id);
 
-        if(!$employee){
-            return $this->sendError("Employee not found", ['error'=>'Employee not found']);
+        if(!$profile){
+            return $this->sendError("Profile not found", ['error'=>'Profile not found']);
         }
         $user = User::find($employee->user_id);
-        $user->name = $request->input('employee_name');
+        $user->name = $request->input('profile_name');
         $user->email = $request->input('email');
         $user->active = $request->input('active');
         $user->password = Hash::make($request->input('password'));
@@ -113,15 +113,12 @@ class ProfilesController extends BaseController
         $memberRole = Role::where("name",$memberRole)->first();
         $user->assignRole($memberRole);
                        
-        $employee->employee_name = $request->input('employee_name');
-        $employee->department_id = $request->input('department_id');
-        $employee->email = $request->input('email');
-        $employee->mobile = $request->input('mobile');
-        $employee->joining_date = $request->input('joining_date');
-        // $employee->resignation_date = $request->input('resignation_date');
-        $employee->save();
+        $profile->profile_name = $request->input('profile_name');
+        $profile->email = $request->input('email');
+        $profile->mobile = $request->input('mobile');
+        $profile->save();
        
-        return $this->sendResponse(['User'=> new UserResource($user), 'employee'=>new EmployeeResource($employee)], "Employees updated successfully");
+        return $this->sendResponse(['User'=> new UserResource($user), 'Profile'=>new ProfileResource($profile)], "Profile updated successfully");
 
     }
 
@@ -130,31 +127,14 @@ class ProfilesController extends BaseController
      */
     public function destroy(string $id): JsonResponse
     {
-        $employee = Employee::find($id);
-        if(!$employee){
-            return $this->sendError("employee not found", ['error'=> 'employee not found']);
+        $profile = Profile::find($id);
+        if(!$profile){
+            return $this->sendError("profile not found", ['error'=> 'profile not found']);
         }
-        $user = User::find($employee->user_id);
-        $employee->delete();
+        $user = User::find($profile->user_id);
+        $profile->delete();
         $user->delete();
-        return $this->sendResponse([], "employee deleted successfully");
+        return $this->sendResponse([], "profile deleted successfully");
     }
 
-    /**
-     * resignation.
-     */
-    public function resignation(Request $request, string $id): JsonResponse
-    {
-        $employee = Employee::find($id);
-        if(!$employee){
-            return $this->sendError("employee not found", ['error'=>'employee not found']);
-        }
-        $val = 0;
-        $user = User::find($employee->user_id);
-        $employee->resignation_date = $request->input('resignation_date');
-        $employee->save();
-        $user->active = $val;
-        $user->save();
-        return $this->sendResponse(['User'=> new UserResource($user), 'employee'=>new EmployeeResource($employee)], "employee data updated successfully");
-    }
 }
